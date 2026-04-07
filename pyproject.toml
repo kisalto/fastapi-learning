@@ -56,7 +56,7 @@ preview = true
 quote-style = 'single'
 
 [pytest]
-addopts = --ignore=/migrations/ --ignore=/htmlcov/
+addopts = ["--ignore=/migrations/" "--ignore=/htmlcov/"]
 
 
 [tool.pytest.ini_options]
