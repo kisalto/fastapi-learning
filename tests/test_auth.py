@@ -72,7 +72,7 @@ def test_refresh_token(client, token):
     assert data['token_type'] == 'bearer'
 
 
-def test_token_refresh_expirado(client, user, token):
+def test_token_refresh_expirado(client, user):
     with freeze_time('2026-04-07 16:00:00'):
         response = client.post(
             'auth/token',
@@ -82,12 +82,11 @@ def test_token_refresh_expirado(client, user, token):
             },
         )
         assert response.status_code == HTTPStatus.OK
-        assert response.json()['access_token']
+        token = response.json()['access_token']
 
     with freeze_time('2026-04-07 16:35:00'):
         response = client.post(
-            'auth/refresh_token', headers={'Authorization': f'Bearer {token}'}
-        )
+            'auth/refresh_token', headers={'Authorization': f'Bearer {token}'})
         assert response.status_code == HTTPStatus.UNAUTHORIZED
         assert response.json() == {
             'detail': 'Não foi possivel validar o token'
