@@ -44,8 +44,8 @@ dev = [
 ]
 
 [tool.ruff]
-line-length = 79
-extend-exclude = ['migrations']
+line-length = 100
+extend-exclude = ['migrations', 'htmlcov']
 
 [tool.ruff.lint]
 preview = true
@@ -57,14 +57,19 @@ quote-style = 'single'
 
 [tool.pytest.ini_options]
 pythonpath = "."
-testpaths = "tests"
+testpaths = ["tests"]
 addopts = '-p no:warnings'
 asyncio_default_fixture_loop_scope = 'function'
-norecursedirs = ['./migrations', './htmlcov']
+norecursedirs = ["htmlcov", "migrations", ".venv", "build", "dist", ".git", ".github"]
 
 [tool.coverage.run]
 core = "ctrace"
 concurrency = ["thread", "greenlet"]
+omit = [
+    "tests/*",
+    "htmlcov/*",
+    "migrations/*"
+]
 
 [tool.taskipy.tasks]
 pre_lint = 'typos'
@@ -73,8 +78,14 @@ pre_format = 'ruff check --fix'
 format = 'ruff format'
 run = 'fastapi dev fast_zero/app.py'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=/fast_zero -vv'
+test = 'pytest -s -x --cov=fast_zero -vv'
 post_test = 'coverage html'
 
 [tool.typos.default]
 extend-ignore-identifiers-re = ["selectin"]
+
+[tool.typos.files]
+extend-exclude = [
+    "htmlcov/*",
+    "migrations/*"
+]
