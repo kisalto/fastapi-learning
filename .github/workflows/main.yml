@@ -20,6 +20,9 @@ jobs:
       - name: Instalar as dependências
         run: poetry install
 
+      - name: Enter poetry shell
+        run: poetry shell
+
       - name: Rodar os testes
-        run: [poetry shell, task test]
+        run: task test
 
