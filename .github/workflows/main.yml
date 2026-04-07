@@ -11,7 +11,6 @@ jobs:
         with:
           python-version: '3.14'
 
-    steps:
       - name: Instalar o poetry
         run: pipx install poetry
 
