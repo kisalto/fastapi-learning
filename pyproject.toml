@@ -60,7 +60,7 @@ pythonpath = "."
 testpaths = "tests"
 addopts = '-p no:warnings'
 asyncio_default_fixture_loop_scope = 'function'
-norecursedirs = migrations htmlcov
+norecursedirs = ['migrations', 'htmlcov']
 
 [tool.coverage.run]
 core = "ctrace"
