@@ -73,7 +73,7 @@ def test_refresh_token(client, token):
 
 
 def test_token_refresh_expirado(client, user, token):
-    with freeze_time('2026-03-26 14:00:00'):
+    with freeze_time('2026-04-07 14:00:00'):
         response = client.post(
             'auth/token',
             data={
@@ -84,7 +84,7 @@ def test_token_refresh_expirado(client, user, token):
         assert response.status_code == HTTPStatus.OK
         assert response.json()['access_token']
 
-    with freeze_time('2026-03-26 14:31:00'):
+    with freeze_time('2026-04-07 14:31:00'):
         response = client.post(
             'auth/refresh_token', headers={'Authorization': f'Bearer {token}'}
         )
