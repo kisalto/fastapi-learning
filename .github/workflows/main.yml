@@ -10,3 +10,14 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.14'
+
+    steps:
+      - name: Instalar o poetry
+        run: pipx install poetry
+
+      - name: Instalar as dependências
+        run: poetry install
+
+      - name: Rodar os testes
+        run: poetry task test
+
